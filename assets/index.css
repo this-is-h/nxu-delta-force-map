@@ -1,0 +1,235 @@
+:root {
+    --icon-size: calc(var(--map-width) / 100);
+    --connection-line-color: rgba(255, 255, 255, 1);
+    --connection-line-width: calc(var(--map-width) / 1000);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    user-select: none;
+    background-color: #000;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+#map-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#map {
+    position: absolute;
+    transform-origin: 0 0;
+    cursor: grab;
+    transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+#map.grabbing {
+    cursor: grabbing;
+}
+
+.icon {
+    position: absolute;
+    width: var(--icon-size);
+    /* height: 40px; */
+    transform-origin: center;
+    line-height: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.icon-boss {
+    width: calc(var(--icon-size) * 1.2);
+}
+
+.icon-safe-box,
+.icon-switch {
+    width: calc(var(--icon-size) * 1.5);
+}
+
+/* .icon-safe-box img {
+    filter: drop-shadow(0 0 0.1px rgba(255,255,255,0.6));
+} */
+
+.icon-evacuate {
+    width: calc(var(--icon-size) * 2);
+}
+
+/* 连接线样式 */
+.connection-line {
+    position: absolute;
+    background-color: transparent;
+    border-top: var(--connection-line-width) dashed var(--connection-line-color);
+    transform-origin: 0 0;
+    z-index: 5; /* 确保在图标下方 */
+}
+
+/* Boss图标半透明红色圆圈效果 */
+.icon-boss::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--icon-size) * 8);
+    height: calc(var(--icon-size) * 8);
+    border-radius: 50%;
+    border: calc(var(--icon-size) * 0.15) dashed rgba(255, 0, 0, 0.6);
+    background-color: rgba(255, 0, 0, 0.15);
+    z-index: -1;
+}
+
+/* 图标选中效果 - 仅显示四个角的绿色框 */
+.icon.selected::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 135%;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(155, 227, 128, 0.3);
+    border-color: rgba(155, 227, 128, 1);
+    border-width: calc(var(--icon-size) * 0.1);
+    border-style: solid;
+    z-index: -1;
+}
+
+.zoom-control {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    /* transform: translateY(-50%); */
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 10px 5px;
+    z-index: 100;
+    align-items: center;
+}
+
+.zoom-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.zoom-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.zoom-slider-container {
+    height: 100px;
+    width: 30px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.zoom-slider-track {
+    height: 100%;
+    width: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    position: relative;
+}
+
+.zoom-slider-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+}
+
+.zoom-slider-thumb {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.popup {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    display: none;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #444;
+}
+
+.popup-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.popup-close {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.popup-content {
+    padding: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* 移动端横屏提示 */
+#orientation-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    padding: 20px;
+}
+
+/* 媒体查询，针对移动设备 */
+@media (max-width: 768px) and (orientation: portrait) {
+    #orientation-message {
+        display: flex;
+    }
+}
