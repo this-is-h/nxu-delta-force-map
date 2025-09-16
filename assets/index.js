@@ -1,4 +1,153 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 预加载功能 - 创建全屏遮罩层
+    function createPreloader() {
+        const preloader = document.createElement('div');
+        preloader.id = 'preloader';
+        preloader.style.position = 'fixed';
+        preloader.style.top = '0';
+        preloader.style.left = '0';
+        preloader.style.width = '100%';
+        preloader.style.height = '100%';
+        preloader.style.backgroundColor = '#000';
+        preloader.style.display = 'flex';
+        preloader.style.flexDirection = 'column';
+        preloader.style.justifyContent = 'center';
+        preloader.style.alignItems = 'center';
+        preloader.style.zIndex = '9999';
+        preloader.style.color = '#fff';
+        preloader.style.fontSize = '18px';
+        preloader.style.fontFamily = 'Microsoft YaHei, sans-serif';
+        preloader.style.transition = 'opacity 0.5s ease-out';
+        
+        const loadingText = document.createElement('div');
+        loadingText.textContent = '正在加载资源，请稍候...';
+        loadingText.style.marginBottom = '20px';
+        
+        const progressBarContainer = document.createElement('div');
+        progressBarContainer.style.width = '300px';
+        progressBarContainer.style.height = '20px';
+        progressBarContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        progressBarContainer.style.borderRadius = '10px';
+        progressBarContainer.style.overflow = 'hidden';
+        
+        const progressBar = document.createElement('div');
+        progressBar.id = 'preloader-progress';
+        progressBar.style.width = '0%';
+        progressBar.style.height = '100%';
+        progressBar.style.backgroundColor = '#4CAF50';
+        progressBar.style.transition = 'width 0.3s ease';
+        
+        const progressText = document.createElement('div');
+        progressText.id = 'preloader-progress-text';
+        progressText.textContent = '0%';
+        progressText.style.marginTop = '10px';
+        progressText.style.fontSize = '14px';
+        
+        progressBarContainer.appendChild(progressBar);
+        preloader.appendChild(loadingText);
+        preloader.appendChild(progressBarContainer);
+        preloader.appendChild(progressText);
+        
+        document.body.appendChild(preloader);
+    }
+    
+    // 移除预加载遮罩
+    function removePreloader() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(preloader);
+            }, 500);
+        }
+    }
+    
+    // 更新预加载进度
+    function updatePreloaderProgress(progress) {
+        const progressBar = document.getElementById('preloader-progress');
+        const progressText = document.getElementById('preloader-progress-text');
+        if (progressBar && progressText) {
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${Math.round(progress)}%`;
+        }
+    }
+    
+    // 获取需要预加载的图片列表
+    function getImageList() {
+        const images = [];
+        
+        // 添加地图图片
+        images.push('assets/img/map/wencui-xingtu-vague.png');
+        images.push('assets/img/map/wencui.png');
+        
+        // 添加图标图片（排除.gitignore中指定的目录）
+        images.push('assets/img/icon/boss.png');
+        images.push('assets/img/icon/evacuate.png');
+        images.push('assets/img/icon/evacuate_conditional.png');
+        images.push('assets/img/icon/evacuate_pay.png');
+        images.push('assets/img/icon/high_value_task.png');
+        images.push('assets/img/icon/safe_box.png');
+        images.push('assets/img/icon/small_safe_box.png');
+        images.push('assets/img/icon/switch.png');
+        images.push('assets/img/icon/task.png');
+        
+        // 添加奖励图片（排除.gitignore中指定的目录）
+        images.push('assets/img/rewards/bust-of-claudius.png');
+        images.push('assets/img/rewards/experimental-data.png');
+        images.push('assets/img/rewards/golden-gazelle.png');
+        images.push('assets/img/rewards/heart-of-africa.png');
+        images.push('assets/img/rewards/mandel-supercomputing-unit.png');
+        images.push('assets/img/rewards/precious-mechanical-watch.png');
+        images.push('assets/img/rewards/quantum-storage.png');
+        
+        return images;
+    }
+    
+    // 预加载图片
+    function preloadImages(images) {
+        return new Promise((resolve) => {
+            if (images.length === 0) {
+                resolve();
+                return;
+            }
+            
+            let loadedCount = 0;
+            
+            images.forEach(imgSrc => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedCount++;
+                    const progress = (loadedCount / images.length) * 100;
+                    updatePreloaderProgress(progress);
+                    
+                    if (loadedCount === images.length) {
+                        resolve();
+                    }
+                };
+                img.onerror = () => {
+                    console.warn(`Failed to load image: ${imgSrc}`);
+                    loadedCount++;
+                    const progress = (loadedCount / images.length) * 100;
+                    updatePreloaderProgress(progress);
+                    
+                    if (loadedCount === images.length) {
+                        resolve();
+                    }
+                };
+                img.src = imgSrc;
+            });
+        });
+    }
+    
+    // 开始预加载流程
+    async function startPreloading() {
+        createPreloader();
+        const images = getImageList();
+        await preloadImages(images);
+        removePreloader();
+        initializeApp();
+    }
+    
     // 获取DOM元素
     const mapContainer = document.getElementById('map-container');
     const map = document.getElementById('map');
@@ -76,6 +225,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // 如果图片已经加载完成，立即初始化
         initializeMap();
     }
+    
+    // 启动预加载
+    startPreloading();
 
     // 初始化地图
     function initMap() {
