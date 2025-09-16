@@ -250,6 +250,38 @@ body {
     margin: 10px 0;
 }
 
+.rewards {
+    height: 80px;
+    padding: 10px 0;
+}
+
+.rewards img {
+    height: 60px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 5px;
+    margin-right: 5px;
+    border-color: rgb(52, 52, 52);
+    border-width: 1.5px;
+    border-style: solid;
+}
+
+.rewards img.back-red {
+    background-color: rgb(40, 0, 0);
+}
+
+.rewards img.back-gold {
+    background-color: rgb(29, 16, 0);
+}
+
+.rewards img.back-purple {
+    background-color: rgb(12, 1, 17);
+}
+
+.rewards img.back-blue {
+    background-color: rgb(0, 23, 28);
+}
+
 /* 移动端横屏提示 */
 #orientation-message {
     display: none;

@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // 图标数据 - 示例数据，可以根据需要修改
-    const iconData = [
+    const wencuiIconData = [
         { x: 0.73, y: 0.443, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
-        { x: 0.72, y: 0.48, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.7335, y: 0.4095, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.72, y: 0.48, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/bust-of-claudius.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
+        { x: 0.7335, y: 0.4095, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/mandel-supercomputing-unit.png"></img><img class="back-red" src="assets/img/rewards/experimental-data.png"></img><img class="back-red" src="assets/img/rewards/quantum-storage.png"></img></div>' },
         { x: 0.35, y: 0.3415, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
         { x: 0.3425, y: 0.29, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
         { x: 0.495, y: 0.782, icon: 'assets/img/icon//evacuate_conditional.png', class: 'icon-evacuate', title: '南门撤离点', content: '撤离名额还有<span style="color: rgb(255, 236, 140);">1</span>名<div class="divider"></div>身份牌撤离点' },
@@ -35,28 +35,36 @@ document.addEventListener('DOMContentLoaded', function() {
         { x: 0.754, y: 0.7, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
         { x: 0.783, y: 0.56, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate icon-connect', title: '拉闸撤离点：东门', content: '需<span style="color: rgb(255, 236, 140);">拉闸</span>开启撤离点<div class="divider"></div>启动两个开关以开启此撤离点' },
         { x: 0.251, y: 0.489, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '条件撤离点：菜鸟驿站', content: '条件撤离点，从此处撤离需要丢弃<span style="color: rgb(255, 236, 140);">背包</span><div class="divider"></div>乘坐快递小车撤离吧' },
-        { x: 0.525, y: 0.425, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '次高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
-        { x: 0.7, y: 0.5, icon: 'assets/img/icon/high_value_task.png', class: 'icon-task', title: '【高价值】', content: '这是一个高价值任务，完成后可获得丰厚奖励。' },
+        { x: 0.53, y: 0.426, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '次高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.593, y: 0.69, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '次高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.285, y: 0.455, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.515, y: 0.315, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.76, y: 0.68, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.65, y: 0.31, icon: 'assets/img/icon/high_value_task.png', class: 'icon-task', title: '【高价值】', content: '任务内容<div class="divider"></div>地点：<div class="divider"></div>报酬：<div class="divider"></div>行动内概率产出<div class="rewards"></div>' },
         { x: 0.1135, y: 0.6, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '这里有一个任务等待完成。' },
     ];
 
-    const locationData = [
+    const wencuiLocationData = [
         { x: 0.725, y: 0.455, title: '大学生活动中心'},
         { x: 0.353, y: 0.359, title: '小广场'},
         { x: 0.375, y: 0.465, title: '宿舍区'},
         { x: 0.485, y: 0.28, title: '宿舍区'},
+        { x: 0.24, y: 0.4, title: '宿舍区'},
         { x: 0.492, y: 0.4235, title: '食堂'},
         { x: 0.573, y: 0.63, title: '教学区'},
         { x: 0.73, y: 0.68, title: '图书馆'},
         { x: 0.615, y: 0.342, title: '运动场'}
     ];
 
+    let nowIconData = wencuiIconData;
+    let nowLocationData = wencuiLocationData;
+
     // 等待图片加载完成
     function initializeMap() {
         initMap();
-        createIcons();
+        createIcons(nowIconData);
         createConnections();
-        createLocations();
+        createLocations(nowLocationData);
         setupEventListeners();
     }
 
@@ -67,86 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mapImg.complete) {
         // 如果图片已经加载完成，立即初始化
         initializeMap();
-    }
-
-    // 创建连接线
-    function createConnections() {
-        // 清除已有的连接线
-        document.querySelectorAll('.connection-line').forEach(line => line.remove());
-
-        // 获取所有带有icon-connect类的图标
-        const connectIcons = document.querySelectorAll('.icon-connect');
-        if (connectIcons.length === 0) return;
-
-        // 分离切换点和撤离点
-        const switches = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-switch'));
-        const evacuates = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-evacuate'));
-
-        // 为每对切换点和撤离点创建连接线
-        switches.forEach(switchIcon => {
-            evacuates.forEach(evacuateIcon => {
-                createConnectionLine(switchIcon, evacuateIcon);
-            });
-        });
-
-        setTimeout(() => {
-            updateAllConnections();
-        }, 100);
-    }
-
-    // 创建单条连接线
-    function createConnectionLine(fromIcon, toIcon) {
-        const line = document.createElement('div');
-        line.className = 'connection-line';
-        map.appendChild(line);
-
-        // 更新连接线位置
-        updateConnectionLine(fromIcon, toIcon, line);
-    }
-
-    // 更新连接线位置和尺寸
-    function updateConnectionLine(fromIcon, toIcon, line) {
-        // 获取图标中心相对于地图的位置（不考虑缩放和平移）
-        const fromX = parseFloat(fromIcon.style.left);
-        const fromY = parseFloat(fromIcon.style.top);
-        const toX = parseFloat(toIcon.style.left);
-        const toY = parseFloat(toIcon.style.top);
-
-        // 计算距离和角度
-        const dx = toX - fromX;
-        const dy = toY - fromY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-        // console.log(dx, dy, distance, angle);
-
-        // 设置连接线样式
-        line.style.width = `${distance}px`;
-        line.style.left = `${fromX}px`;
-        line.style.top = `${fromY}px`;
-        line.style.transform = `rotate(${angle}deg)`;
-    }
-
-    // 更新所有连接线
-    function updateAllConnections() {
-        // console.log('更新所有连接线');
-        const lines = document.querySelectorAll('.connection-line');
-        if (lines.length === 0) return;
-
-        // 获取所有带有icon-connect类的图标
-        const connectIcons = document.querySelectorAll('.icon-connect');
-        const switches = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-switch'));
-        const evacuates = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-evacuate'));
-
-        // 更新每条连接线
-        let index = 0;
-        switches.forEach(switchIcon => {
-            evacuates.forEach(evacuateIcon => {
-                if (index < lines.length) {
-                    updateConnectionLine(switchIcon, evacuateIcon, lines[index]);
-                    index++;
-                }
-            });
-        });
     }
 
     // 初始化地图
@@ -303,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 创建图标
-    function createIcons() {
+    function createIcons(iconData) {
         iconData.forEach((data, index) => {
             // 创建包裹元素用于实现四角边框效果
             const iconWrapper = document.createElement('div');
@@ -325,7 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 只有非boss图标才添加点击事件和选中状态
             if (!data.class || !data.class.includes('boss')) {
-                iconWrapper.addEventListener('click', function(e) {
+                // 添加点击事件 - 同时支持PC端和移动端
+                const handleIconClick = function(e) {
                     e.stopPropagation();
                     
                     // 移除其他图标的选中状态
@@ -337,7 +266,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.classList.add('selected');
                     
                     showPopup(data);
-                });
+                };
+                
+                iconWrapper.addEventListener('click', handleIconClick);
+                iconWrapper.addEventListener('touchstart', handleIconClick);
             } else {
                 // boss图标不可点击，添加样式标识
                 iconWrapper.style.pointerEvents = 'none';
@@ -361,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 更新所有图标位置
-    function updateAllIconPositions() {
+    function updateAllIconPositions(iconData) {
         const icons = document.querySelectorAll('.icon');
         icons.forEach(icon => {
             const index = parseInt(icon.dataset.index);
@@ -373,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // 创建地名单据
-    function createLocations() {
+    function createLocations(locationData) {
         // 先清除已有的地名单据
         document.querySelectorAll('.location').forEach(name => name.remove());
         
@@ -388,6 +320,86 @@ document.addEventListener('DOMContentLoaded', function() {
             updateLocationNamePosition(locationName, data);
             
             map.appendChild(locationName);
+        });
+    }
+
+    // 创建连接线
+    function createConnections() {
+        // 清除已有的连接线
+        document.querySelectorAll('.connection-line').forEach(line => line.remove());
+
+        // 获取所有带有icon-connect类的图标
+        const connectIcons = document.querySelectorAll('.icon-connect');
+        if (connectIcons.length === 0) return;
+
+        // 分离切换点和撤离点
+        const switches = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-switch'));
+        const evacuates = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-evacuate'));
+
+        // 为每对切换点和撤离点创建连接线
+        switches.forEach(switchIcon => {
+            evacuates.forEach(evacuateIcon => {
+                createConnectionLine(switchIcon, evacuateIcon);
+            });
+        });
+
+        setTimeout(() => {
+            updateAllConnections();
+        }, 100);
+    }
+
+    // 创建单条连接线
+    function createConnectionLine(fromIcon, toIcon) {
+        const line = document.createElement('div');
+        line.className = 'connection-line';
+        map.appendChild(line);
+
+        // 更新连接线位置
+        updateConnectionLine(fromIcon, toIcon, line);
+    }
+
+    // 更新连接线位置和尺寸
+    function updateConnectionLine(fromIcon, toIcon, line) {
+        // 获取图标中心相对于地图的位置（不考虑缩放和平移）
+        const fromX = parseFloat(fromIcon.style.left);
+        const fromY = parseFloat(fromIcon.style.top);
+        const toX = parseFloat(toIcon.style.left);
+        const toY = parseFloat(toIcon.style.top);
+
+        // 计算距离和角度
+        const dx = toX - fromX;
+        const dy = toY - fromY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+        // console.log(dx, dy, distance, angle);
+
+        // 设置连接线样式
+        line.style.width = `${distance}px`;
+        line.style.left = `${fromX}px`;
+        line.style.top = `${fromY}px`;
+        line.style.transform = `rotate(${angle}deg)`;
+    }
+
+    // 更新所有连接线
+    function updateAllConnections() {
+        // console.log('更新所有连接线');
+        const lines = document.querySelectorAll('.connection-line');
+        if (lines.length === 0) return;
+
+        // 获取所有带有icon-connect类的图标
+        const connectIcons = document.querySelectorAll('.icon-connect');
+        const switches = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-switch'));
+        const evacuates = Array.from(connectIcons).filter(icon => icon.classList.contains('icon-evacuate'));
+
+        // 更新每条连接线
+        let index = 0;
+        switches.forEach(switchIcon => {
+            evacuates.forEach(evacuateIcon => {
+                if (index < lines.length) {
+                    updateConnectionLine(switchIcon, evacuateIcon, lines[index]);
+                    index++;
+                }
+            });
         });
     }
     
@@ -542,44 +554,66 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
             
-            // 滑块拖动
-            sliderThumb.addEventListener('mousedown', function(e) {
-                e.stopPropagation();
-                isDraggingSlider = true;
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-                if (!isDraggingSlider) return;
+            // 滑块拖动 - 同时支持PC端和移动端
+                const handleSliderDrag = function(e) {
+                    if (!isDraggingSlider) return;
+                    
+                    // 获取鼠标或触摸位置
+                    let clientY;
+                    if (e.type.includes('mouse')) {
+                        clientY = e.clientY;
+                    } else if (e.type.includes('touch')) {
+                        clientY = e.touches[0].clientY;
+                        e.preventDefault(); // 防止页面滚动
+                    }
+                    
+                    const rect = sliderContainer.getBoundingClientRect();
+                    const dragY = clientY - rect.top;
+                    const height = rect.height;
+                    let percent = 1 - (dragY / height);
+                    
+                    // 限制在0-1范围内
+                    percent = Math.max(0, Math.min(1, percent));
+                    
+                    // 计算新的缩放比例
+                    const range = mapState.maxScale - mapState.minScale;
+                    const newScale = mapState.minScale + (percent * range);
+                    
+                    // 以屏幕中心为缩放点
+                    const centerX = mapContainer.clientWidth / 2;
+                    const centerY = mapContainer.clientHeight / 2;
+                    
+                    // 使用requestAnimationFrame确保平滑过渡
+                    requestAnimationFrame(() => {
+                        setZoomScale(newScale, centerX, centerY);
+                        // 确保应用过渡效果
+                        updateMapTransform(false);
+                    });
+                };
                 
-                const rect = sliderContainer.getBoundingClientRect();
-                const dragY = e.clientY - rect.top;
-                const height = rect.height;
-                let percent = 1 - (dragY / height);
+                const handleSliderDragStart = function(e) {
+                    e.stopPropagation();
+                    isDraggingSlider = true;
+                    if (e.type.includes('touch')) {
+                        e.preventDefault(); // 防止页面滚动
+                    }
+                };
                 
-                // 限制在0-1范围内
-                percent = Math.max(0, Math.min(1, percent));
-                
-                // 计算新的缩放比例
-                const range = mapState.maxScale - mapState.minScale;
-                const newScale = mapState.minScale + (percent * range);
-                
-                // 以屏幕中心为缩放点
-                const centerX = mapContainer.clientWidth / 2;
-                const centerY = mapContainer.clientHeight / 2;
-                
-                // 使用requestAnimationFrame确保平滑过渡
-                requestAnimationFrame(() => {
-                    setZoomScale(newScale, centerX, centerY);
-                    // 确保应用过渡效果
+                const handleSliderDragEnd = function() {
+                    isDraggingSlider = false;
+                    // 确保拖动结束后应用过渡效果
                     updateMapTransform(false);
-                });
-            });
-            
-            document.addEventListener('mouseup', function() {
-                isDraggingSlider = false;
-                // 确保拖动结束后应用过渡效果
-                updateMapTransform(false);
-            });
+                };
+                
+                // 添加鼠标事件
+                sliderThumb.addEventListener('mousedown', handleSliderDragStart);
+                document.addEventListener('mousemove', handleSliderDrag);
+                document.addEventListener('mouseup', handleSliderDragEnd);
+                
+                // 添加触摸事件（支持移动端）
+                sliderThumb.addEventListener('touchstart', handleSliderDragStart, { passive: false });
+                document.addEventListener('touchmove', handleSliderDrag, { passive: false });
+                document.addEventListener('touchend', handleSliderDragEnd);
         }
         
         // 移动端双指缩放
@@ -613,7 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 窗口大小改变时重新计算
         window.addEventListener('resize', function() {
             initMap();
-            updateAllIconPositions();
+            updateAllIconPositions(nowIconData);
         });
     }
     
