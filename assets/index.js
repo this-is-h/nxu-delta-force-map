@@ -25,35 +25,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 图标数据 - 示例数据，可以根据需要修改
     const iconData = [
-        { x: 0.89, y: 0.44, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
-        { x: 0.865, y: 0.5, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.882, y: 0.40, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.272, y: 0.268, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
-        { x: 0.265, y: 0.194, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.502, y: 0.975, icon: 'assets/img/icon/evacuate.png', class: 'icon-evacuate', title: '撤离点', content: '这是一个撤离点，可以从这里离开地图。' },
-        { x: 0.865, y: 0.385, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '东门撤离开关', content: '功能：开启东门撤离点' },
-        { x: 0.925, y: 0.848, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '西门撤离开关', content: '功能：开启东门撤离点' },
-        { x: 0.972, y: 0.612, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate icon-connect', title: '东门撤离点', content: '闸东门' },
-        { x: 0.115, y: 0.507, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '菜鸟驿站撤离点', content: '条件撤离点，从此处撤离需要丢弃背包<br>乘坐快递小车撤离吧' },
+        { x: 0.73, y: 0.443, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
+        { x: 0.72, y: 0.48, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
+        { x: 0.7335, y: 0.4095, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.35, y: 0.3415, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
+        { x: 0.3425, y: 0.29, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
+        { x: 0.495, y: 0.782, icon: 'assets/img/icon//evacuate_conditional.png', class: 'icon-evacuate', title: '南门撤离点', content: '撤离名额还有<span style="color: rgb(255, 236, 140);">1</span>名<div class="divider"></div>身份牌撤离点' },
+        { x: 0.72, y: 0.402, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
+        { x: 0.754, y: 0.7, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
+        { x: 0.783, y: 0.56, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate icon-connect', title: '拉闸撤离点：东门', content: '需<span style="color: rgb(255, 236, 140);">拉闸</span>开启撤离点<div class="divider"></div>启动两个开关以开启此撤离点' },
+        { x: 0.251, y: 0.489, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '条件撤离点：菜鸟驿站', content: '条件撤离点，从此处撤离需要丢弃<span style="color: rgb(255, 236, 140);">背包</span><div class="divider"></div>乘坐快递小车撤离吧' },
+        { x: 0.525, y: 0.425, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '次高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
+        { x: 0.7, y: 0.5, icon: 'assets/img/icon/high_value_task.png', class: 'icon-task', title: '【高价值】', content: '这是一个高价值任务，完成后可获得丰厚奖励。' },
         { x: 0.1135, y: 0.6, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '这里有一个任务等待完成。' },
-        { x: 0.8, y: 0.2, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.7, y: 0.5, icon: 'assets/img/icon/high_value_task.png', class: 'icon-task', title: '高价值任务', content: '这是一个高价值任务，完成后可获得丰厚奖励。' }
     ];
 
     const locationData = [
-        { x: 0.89, y: 0.44, title: '首领'},
-        { x: 0.865, y: 0.5, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.882, y: 0.40, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.272, y: 0.268, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
-        { x: 0.265, y: 0.194, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.502, y: 0.975, icon: 'assets/img/icon/evacuate.png', class: 'icon-evacuate', title: '撤离点', content: '这是一个撤离点，可以从这里离开地图。' },
-        { x: 0.865, y: 0.385, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '东门撤离开关', content: '功能：开启东门撤离点' },
-        { x: 0.925, y: 0.848, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '西门撤离开关', content: '功能：开启东门撤离点' },
-        { x: 0.972, y: 0.612, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate icon-connect', title: '东门撤离点', content: '闸东门' },
-        { x: 0.115, y: 0.507, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '菜鸟驿站撤离点', content: '条件撤离点，从此处撤离需要丢弃背包<br>乘坐快递小车撤离吧' },
-        { x: 0.1135, y: 0.6, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '这里有一个任务等待完成。' },
-        { x: 0.8, y: 0.2, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
-        { x: 0.7, y: 0.5, icon: 'assets/img/icon/high_value_task.png', class: 'icon-task', title: '高价值任务', content: '这是一个高价值任务，完成后可获得丰厚奖励。' }
+        { x: 0.725, y: 0.455, title: '大学生活动中心'},
+        { x: 0.353, y: 0.359, title: '小广场'},
+        { x: 0.375, y: 0.465, title: '宿舍区'},
+        { x: 0.485, y: 0.28, title: '宿舍区'},
+        { x: 0.492, y: 0.4235, title: '食堂'},
+        { x: 0.573, y: 0.63, title: '教学区'},
+        { x: 0.73, y: 0.68, title: '图书馆'},
+        { x: 0.615, y: 0.342, title: '运动场'}
     ];
 
     // 等待图片加载完成
@@ -61,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initMap();
         createIcons();
         createConnections();
+        createLocations();
         setupEventListeners();
     }
 
@@ -111,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新连接线位置和尺寸
     function updateConnectionLine(fromIcon, toIcon, line) {
         // 获取图标中心相对于地图的位置（不考虑缩放和平移）
-        const fromX = parseFloat(fromIcon.style.left) + fromIcon.offsetWidth / 2;
-        const fromY = parseFloat(fromIcon.style.top) + fromIcon.offsetHeight / 2;
-        const toX = parseFloat(toIcon.style.left) + toIcon.offsetWidth / 2;
-        const toY = parseFloat(toIcon.style.top) + toIcon.offsetHeight / 2;
+        const fromX = parseFloat(fromIcon.style.left);
+        const fromY = parseFloat(fromIcon.style.top);
+        const toX = parseFloat(toIcon.style.left);
+        const toY = parseFloat(toIcon.style.top);
 
         // 计算距离和角度
         const dx = toX - fromX;
@@ -360,8 +356,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const x = data.x * imgWidth;
         const y = data.y * imgHeight;
         
-        icon.style.left = `${x - 20}px`; // 20是图标宽度的一半
-        icon.style.top = `${y - 20}px`;  // 20是图标高度的一半
+        icon.style.left = `${x}px`;
+        icon.style.top = `${y}px`;
     }
 
     // 更新所有图标位置
@@ -370,6 +366,52 @@ document.addEventListener('DOMContentLoaded', function() {
         icons.forEach(icon => {
             const index = parseInt(icon.dataset.index);
             updateIconPosition(icon, iconData[index]);
+        });
+        
+        // 同时更新地名单据位置
+        updateAllLocationNamePositions();
+    }
+    
+    // 创建地名单据
+    function createLocations() {
+        // 先清除已有的地名单据
+        document.querySelectorAll('.location').forEach(name => name.remove());
+        
+        locationData.forEach((data, index) => {
+            // 创建地名元素
+            const locationName = document.createElement('div');
+            locationName.className = 'location';
+            locationName.dataset.index = index;
+            locationName.textContent = data.title;
+            
+            // 设置位置
+            updateLocationNamePosition(locationName, data);
+            
+            map.appendChild(locationName);
+        });
+    }
+    
+    // 更新地名单据位置
+    function updateLocationNamePosition(locationName, data) {
+        const imgWidth = mapImg.naturalWidth;
+        const imgHeight = mapImg.naturalHeight;
+        
+        // 根据相对位置计算绝对位置
+        const x = data.x * imgWidth;
+        const y = data.y * imgHeight;
+        
+        // 与图标位置计算逻辑完全保持一致
+        // 使用与图标完全相同的定位方式和偏移量，确保在相同参考点上显示
+        locationName.style.left = `${x}px`; // 与图标使用相同的水平偏移
+        locationName.style.top = `${y}px`;  // 与图标使用相同的垂直偏移
+    }
+    
+    // 更新所有地名单据位置
+    function updateAllLocationNamePositions() {
+        const locationNames = document.querySelectorAll('.location');
+        locationNames.forEach(name => {
+            const index = parseInt(name.dataset.index);
+            updateLocationNamePosition(name, locationData[index]);
         });
     }
 

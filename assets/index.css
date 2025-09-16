@@ -1,5 +1,6 @@
 :root {
-    --icon-size: calc(var(--map-width) / 100);
+    --icon-size: calc(var(--map-width) / 130);
+    --text-size: calc(var(--map-width) / 90);
     --connection-line-color: rgba(255, 255, 255, 1);
     --connection-line-width: calc(var(--map-width) / 1000);
 }
@@ -37,12 +38,17 @@ body {
 
 .icon {
     position: absolute;
+    transform: translate(-50%, -50%);
     width: var(--icon-size);
     /* height: 40px; */
     transform-origin: center;
     line-height: 0;
     cursor: pointer;
     z-index: 10;
+}
+
+.icon-task {
+    width: calc(var(--icon-size) * 1.1);
 }
 
 .icon-boss {
@@ -52,6 +58,10 @@ body {
 .icon-safe-box,
 .icon-switch {
     width: calc(var(--icon-size) * 1.5);
+}
+
+.icon-safe-box {
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
 }
 
 /* .icon-safe-box img {
@@ -100,6 +110,30 @@ body {
     border-width: calc(var(--icon-size) * 0.1);
     border-style: solid;
     z-index: -1;
+}
+
+.location {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.8);
+    font-size: var(--text-size);
+    font-weight: normal;
+    pointer-events: none; /* 防止干扰地图交互 */
+    z-index: 5; /* 确保显示在图标上方 */
+    text-align: center;
+    white-space: nowrap;
+}
+
+.location span {
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.8);
+    font-size: var(--text-size);
+    font-weight: normal;
+    pointer-events: none; /* 防止干扰地图交互 */
+    z-index: 5; /* 确保显示在图标上方 */
+    text-align: center;
+    white-space: nowrap;
 }
 
 .zoom-control {
@@ -194,7 +228,7 @@ body {
 }
 
 .popup-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -204,9 +238,16 @@ body {
 }
 
 .popup-content {
-    padding: 15px;
+    font-size: 14px;
+    padding: 14px;
     max-height: 400px;
     overflow-y: auto;
+}
+
+.divider {
+    height: 1px;
+    background-color: #444;
+    margin: 10px 0;
 }
 
 /* 移动端横屏提示 */
