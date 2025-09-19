@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         preloader.style.transition = 'opacity 0.5s ease-out';
         
         const loadingText = document.createElement('div');
-        loadingText.textContent = '正在加载资源，请稍候...';
+        loadingText.textContent = '正在加载资源，请耐心等待...';
         loadingText.style.marginBottom = '20px';
         
         const progressBarContainer = document.createElement('div');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         progressBar.id = 'preloader-progress';
         progressBar.style.width = '0%';
         progressBar.style.height = '100%';
-        progressBar.style.backgroundColor = '#4CAF50';
+        progressBar.style.backgroundColor = 'rgb(15, 247, 150)';
         progressBar.style.transition = 'width 0.3s ease';
         
         const progressText = document.createElement('div');
@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const images = [];
         
         // 添加地图图片
-        images.push('assets/img/map/wencui-xingtu-vague.png');
         images.push('assets/img/map/wencui.png');
+        // images.push('assets/img/map/wencui.png');
         
         // 添加图标图片（排除.gitignore中指定的目录）
         images.push('assets/img/icon/boss.png');
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const images = getImageList();
         await preloadImages(images);
         removePreloader();
-        initializeApp();
+        initializeMap();
     }
     
     // 获取DOM元素
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { x: 0.72, y: 0.48, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/bust-of-claudius.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
         { x: 0.7335, y: 0.4095, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/mandel-supercomputing-unit.png"></img><img class="back-red" src="assets/img/rewards/experimental-data.png"></img><img class="back-red" src="assets/img/rewards/quantum-storage.png"></img></div>' },
         { x: 0.35, y: 0.3415, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
-        { x: 0.3425, y: 0.29, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '这里有一个保险箱，可能包含有价值的物品。' },
+        { x: 0.3425, y: 0.29, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/bust-of-claudius.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
         { x: 0.495, y: 0.782, icon: 'assets/img/icon//evacuate_conditional.png', class: 'icon-evacuate', title: '南门撤离点', content: '撤离名额还有<span style="color: rgb(255, 236, 140);">1</span>名<div class="divider"></div>身份牌撤离点' },
         { x: 0.72, y: 0.402, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
         { x: 0.754, y: 0.7, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
@@ -204,6 +204,41 @@ document.addEventListener('DOMContentLoaded', function() {
         { x: 0.73, y: 0.68, title: '图书馆'},
         { x: 0.615, y: 0.342, title: '运动场'}
     ];
+    
+    // 示例：第二个地图的数据
+    const otherMapIconData = [
+        { x: 0.5, y: 0.5, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是另一个地图的首领点。' },
+        { x: 0.3, y: 0.7, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '另一个地图的保险箱。' },
+        { x: 0.8, y: 0.3, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '撤离点', content: '另一个地图的撤离点。' }
+    ];
+    
+    const otherMapLocationData = [
+        { x: 0.5, y: 0.5, title: '中央广场'},
+        { x: 0.3, y: 0.7, title: '北区'},
+        { x: 0.8, y: 0.3, title: '南区'}
+    ];
+    
+    // 所有地图的数据映射
+    const mapsData = {
+        'wencui': {
+            imageUrl: 'assets/img/map/wencui.png',
+            iconData: wencuiIconData,
+            locationData: wencuiLocationData,
+            name: '文昌校区'
+        },
+        'other-map': {
+            imageUrl: 'assets/img/map/helanshan.png', // 使用相同的图片作为示例
+            iconData: otherMapIconData,
+            locationData: otherMapLocationData,
+            name: '其他地图'
+        },
+        'other-map1': {
+            imageUrl: 'assets/img/map/wencui.png', // 使用相同的图片作为示例
+            iconData: otherMapIconData,
+            locationData: otherMapLocationData,
+            name: '其他地图1'
+        }
+    };
 
     let nowIconData = wencuiIconData;
     let nowLocationData = wencuiLocationData;
@@ -215,16 +250,17 @@ document.addEventListener('DOMContentLoaded', function() {
         createConnections();
         createLocations(nowLocationData);
         setupEventListeners();
+        initializeFunctionButtons()
     }
 
     // 设置onload事件处理器
-    mapImg.onload = initializeMap;
+    // mapImg.onload = initializeMap;
 
     // 检查图片是否已经在缓存中完成加载
-    if (mapImg.complete) {
-        // 如果图片已经加载完成，立即初始化
-        initializeMap();
-    }
+    // if (mapImg.complete) {
+    //     // 如果图片已经加载完成，立即初始化
+    //     initializeMap();
+    // }
     
     // 启动预加载
     startPreloading();
@@ -931,5 +967,115 @@ document.addEventListener('DOMContentLoaded', function() {
         const dx = touches[0].clientX - touches[1].clientX;
         const dy = touches[0].clientY - touches[1].clientY;
         return Math.sqrt(dx * dx + dy * dy);
+    }
+    
+    // 获取DOM元素
+    const mapSelectPopup = document.getElementById('map-select-popup');
+    const mapSelectClose = document.getElementById('map-select-close');
+    const mapOptions = document.querySelectorAll('.map-option');
+    
+    // 显示地图选择弹窗
+    function showMapSelectPopup() {
+        mapSelectPopup.style.display = 'block';
+    }
+    
+    // 隐藏地图选择弹窗
+    function hideMapSelectPopup() {
+        mapSelectPopup.style.display = 'none';
+    }
+    
+    // 切换地图
+    function switchMap(mapId) {
+        const mapData = mapsData[mapId];
+        if (!mapData) {
+            console.error('地图数据不存在:', mapId);
+            return;
+        }
+        
+        // 更新地图图片
+        mapImg.src = mapData.imageUrl;
+        
+        // 更新当前使用的数据
+        nowIconData = mapData.iconData;
+        nowLocationData = mapData.locationData;
+        
+        // 隐藏弹窗
+        hideMapSelectPopup();
+        
+        // 重新初始化地图
+        resetMap();
+        initializeMap();
+        
+        console.log('已切换到地图:', mapData.name);
+    }
+    
+    // 重置地图
+    function resetMap() {
+        // 移除所有图标
+        const icons = document.querySelectorAll('.icon');
+        icons.forEach(icon => icon.remove());
+        
+        // 移除所有连接线
+        const connections = document.querySelectorAll('.connection-line');
+        connections.forEach(connection => connection.remove());
+        
+        // 移除所有地名
+        const locations = document.querySelectorAll('.location');
+        locations.forEach(location => location.remove());
+        
+        // 重置地图状态
+        mapState.scale = 1;
+        mapState.translateX = 0;
+        mapState.translateY = 0;
+        mapState.isDragging = false;
+    }
+    
+    // 初始化功能按钮
+    function initializeFunctionButtons() {
+        // 获取导出图片按钮
+        const exportImageBtn = document.getElementById('export-image-btn');
+        if (exportImageBtn) {
+            // 为导出图片按钮添加点击事件
+            exportImageBtn.addEventListener('click', async function() {
+                // 目前不需要实现具体的导出逻辑
+                console.log('导出图片按钮被点击');
+                const el = document.querySelector('#map-container');
+                await snapdom.download(el, {
+                    format: 'png',
+                    filename: 'map',
+                    scale: 2.5,
+                    quality: 1
+                })
+            });
+        }
+        
+        // 获取选择地图按钮
+        const selectMapBtn = document.getElementById('select-map-btn');
+        if (selectMapBtn) {
+            // 为选择地图按钮添加点击事件
+            selectMapBtn.addEventListener('click', showMapSelectPopup);
+        }
+        
+        // 添加地图选择弹窗关闭事件
+        if (mapSelectClose) {
+            mapSelectClose.addEventListener('click', hideMapSelectPopup);
+        }
+        
+        // 添加地图选项点击事件
+        mapOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const mapId = this.dataset.mapId;
+                switchMap(mapId);
+            });
+        });
+        
+        // 点击弹窗外部关闭弹窗
+        if (mapSelectPopup) {
+            mapSelectPopup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideMapSelectPopup();
+                }
+            });
+        }
     }
 });
