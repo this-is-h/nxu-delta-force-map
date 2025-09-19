@@ -78,7 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 添加地图图片
         images.push('assets/img/map/wencui.png');
-        // images.push('assets/img/map/wencui.png');
+        images.push('assets/img/map/helanshan.png');
+        // images.push('assets/img/map/huaiyuan.png');
         
         // 添加图标图片（排除.gitignore中指定的目录）
         images.push('assets/img/icon/boss.png');
@@ -250,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         createConnections();
         createLocations(nowLocationData);
         setupEventListeners();
-        initializeFunctionButtons()
+        initializeFunctionButtons();
     }
 
     // 设置onload事件处理器
@@ -690,27 +691,52 @@ document.addEventListener('DOMContentLoaded', function() {
         sliderThumb.style.bottom = `${fillHeight}px`;
     }
 
+    // 存储添加的事件监听器，以便后续移除
+    const eventListeners = [];
+    
+    // 添加事件监听器并存储引用
+    function addEventListener(element, event, handler, options = {}) {
+        element.addEventListener(event, handler, options);
+        eventListeners.push({ element, event, handler, options });
+    }
+    
+    // 移除所有存储的事件监听器
+    function removeAllEventListeners() {
+        eventListeners.forEach(listener => {
+            try {
+                listener.element.removeEventListener(listener.event, listener.handler, listener.options);
+            } catch (error) {
+                // 忽略已被移除的元素的错误
+                console.warn('Failed to remove event listener:', error);
+            }
+        });
+        eventListeners.length = 0; // 清空数组
+    }
+    
     // 设置事件监听器
     function setupEventListeners() {
+        // 移除之前可能存在的事件监听器
+        removeAllEventListeners();
+        
         // 鼠标拖动
-        map.addEventListener('mousedown', startDrag);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', endDrag);
+        addEventListener(map, 'mousedown', startDrag);
+        addEventListener(document, 'mousemove', drag);
+        addEventListener(document, 'mouseup', endDrag);
         
         // 触摸拖动
-        map.addEventListener('touchstart', startDrag);
-        document.addEventListener('touchmove', drag);
-        document.addEventListener('touchend', endDrag);
+        addEventListener(map, 'touchstart', startDrag);
+        addEventListener(document, 'touchmove', drag);
+        addEventListener(document, 'touchend', endDrag);
         
         // 鼠标滚轮缩放 - 使用passive: false减少延迟
-        mapContainer.addEventListener('wheel', zoom, { passive: false });
+        addEventListener(mapContainer, 'wheel', zoom, { passive: false });
         
         // 缩放按钮
-        zoomIn.addEventListener('click', () => zoomByButton(0.8));
-        zoomOut.addEventListener('click', () => zoomByButton(-0.5));
+        addEventListener(zoomIn, 'click', () => zoomByButton(0.8));
+        addEventListener(zoomOut, 'click', () => zoomByButton(-0.5));
         
         // 关闭弹窗
-        popupClose.addEventListener('click', hidePopup);
+        addEventListener(popupClose, 'click', hidePopup);
         
         // 滑动条交互
         const sliderThumb = document.getElementById('zoom-slider-thumb');
@@ -720,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let isDraggingSlider = false;
             
             // 滑动条点击
-            sliderContainer.addEventListener('click', function(e) {
+            addEventListener(sliderContainer, 'click', function(e) {
                 const rect = sliderContainer.getBoundingClientRect();
                 const clickY = e.clientY - rect.top;
                 const height = rect.height;
@@ -794,25 +820,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 
                 // 添加鼠标事件
-                sliderThumb.addEventListener('mousedown', handleSliderDragStart);
-                document.addEventListener('mousemove', handleSliderDrag);
-                document.addEventListener('mouseup', handleSliderDragEnd);
+                addEventListener(sliderThumb, 'mousedown', handleSliderDragStart);
+                addEventListener(document, 'mousemove', handleSliderDrag);
+                addEventListener(document, 'mouseup', handleSliderDragEnd);
                 
                 // 添加触摸事件（支持移动端）
-                sliderThumb.addEventListener('touchstart', handleSliderDragStart, { passive: false });
-                document.addEventListener('touchmove', handleSliderDrag, { passive: false });
-                document.addEventListener('touchend', handleSliderDragEnd);
+                addEventListener(sliderThumb, 'touchstart', handleSliderDragStart, { passive: false });
+                addEventListener(document, 'touchmove', handleSliderDrag, { passive: false });
+                addEventListener(document, 'touchend', handleSliderDragEnd);
         }
         
         // 移动端双指缩放
         let lastTouchDistance = 0;
-        mapContainer.addEventListener('touchstart', function(e) {
+        addEventListener(mapContainer, 'touchstart', function(e) {
             if (e.touches.length === 2) {
                 lastTouchDistance = getTouchDistance(e.touches);
             }
         });
         
-        mapContainer.addEventListener('touchmove', function(e) {
+        addEventListener(mapContainer, 'touchmove', function(e) {
             if (e.touches.length === 2) {
                 const currentDistance = getTouchDistance(e.touches);
                 const delta = currentDistance - lastTouchDistance;
@@ -833,7 +859,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: false });
         
         // 窗口大小改变时重新计算
-        window.addEventListener('resize', function() {
+        addEventListener(window, 'resize', function() {
             initMap();
             updateAllIconPositions(nowIconData);
         });
@@ -1028,6 +1054,9 @@ document.addEventListener('DOMContentLoaded', function() {
         mapState.translateX = 0;
         mapState.translateY = 0;
         mapState.isDragging = false;
+        
+        // 清除所有事件监听器
+        removeAllEventListeners();
     }
     
     // 初始化功能按钮
@@ -1036,7 +1065,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const exportImageBtn = document.getElementById('export-image-btn');
         if (exportImageBtn) {
             // 为导出图片按钮添加点击事件
-            exportImageBtn.addEventListener('click', async function() {
+            addEventListener(exportImageBtn, 'click', async function() {
                 // 目前不需要实现具体的导出逻辑
                 console.log('导出图片按钮被点击');
                 const el = document.querySelector('#map-container');
@@ -1053,25 +1082,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectMapBtn = document.getElementById('select-map-btn');
         if (selectMapBtn) {
             // 为选择地图按钮添加点击事件
-            selectMapBtn.addEventListener('click', showMapSelectPopup);
+            addEventListener(selectMapBtn, 'click', showMapSelectPopup);
         }
         
         // 添加地图选择弹窗关闭事件
+        const mapSelectClose = document.getElementById('map-select-close');
         if (mapSelectClose) {
-            mapSelectClose.addEventListener('click', hideMapSelectPopup);
+            addEventListener(mapSelectClose, 'click', hideMapSelectPopup);
         }
         
         // 添加地图选项点击事件
+        const mapOptions = document.querySelectorAll('.map-option');
         mapOptions.forEach(option => {
-            option.addEventListener('click', function() {
+            addEventListener(option, 'click', function() {
                 const mapId = this.dataset.mapId;
                 switchMap(mapId);
             });
         });
         
         // 点击弹窗外部关闭弹窗
+        const mapSelectPopup = document.getElementById('map-select-popup');
         if (mapSelectPopup) {
-            mapSelectPopup.addEventListener('click', function(e) {
+            addEventListener(mapSelectPopup, 'click', function(e) {
                 if (e.target === this) {
                     hideMapSelectPopup();
                 }
