@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 添加地图图片
         images.push('assets/img/map/wencui.png');
         images.push('assets/img/map/helanshan.png');
-        // images.push('assets/img/map/huaiyuan.png');
+        images.push('assets/img/map/huaiyuan.png');
         
         // 添加图标图片（排除.gitignore中指定的目录）
         images.push('assets/img/icon/boss.png');
@@ -207,18 +207,30 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     
     // 示例：第二个地图的数据
-    const otherMapIconData = [
+    const helanshanIconData = [
         { x: 0.5, y: 0.5, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是另一个地图的首领点。' },
         { x: 0.3, y: 0.7, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '另一个地图的保险箱。' },
         { x: 0.8, y: 0.3, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '撤离点', content: '另一个地图的撤离点。' }
     ];
     
-    const otherMapLocationData = [
+    const helanshanLocationData = [
         { x: 0.5, y: 0.5, title: '中央广场'},
         { x: 0.3, y: 0.7, title: '北区'},
         { x: 0.8, y: 0.3, title: '南区'}
     ];
     
+    // 示例：第三个地图的数据
+    const huaiyuanIconData = [
+        { x: 0.5, y: 0.5, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是另一个地图的首领点。' },
+        { x: 0.3, y: 0.7, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '另一个地图的保险箱。' },
+        { x: 0.8, y: 0.3, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '撤离点', content: '另一个地图的撤离点。' }
+    ];
+    
+    const huaiyuanLocationData = [
+        { x: 0.5, y: 0.5, title: '中央广场'},
+        { x: 0.3, y: 0.7, title: '北区'},
+        { x: 0.8, y: 0.3, title: '南区'}
+    ];
     // 所有地图的数据映射
     const mapsData = {
         'wencui': {
@@ -227,17 +239,17 @@ document.addEventListener('DOMContentLoaded', function() {
             locationData: wencuiLocationData,
             name: '文昌校区'
         },
-        'other-map': {
+        'helanshan': {
             imageUrl: 'assets/img/map/helanshan.png', // 使用相同的图片作为示例
-            iconData: otherMapIconData,
-            locationData: otherMapLocationData,
-            name: '其他地图'
+            iconData: helanshanIconData,
+            locationData: helanshanLocationData,
+            name: '贺兰山校区'
         },
-        'other-map1': {
-            imageUrl: 'assets/img/map/wencui.png', // 使用相同的图片作为示例
-            iconData: otherMapIconData,
-            locationData: otherMapLocationData,
-            name: '其他地图1'
+        'huaiyuan': {
+            imageUrl: 'assets/img/map/huaiyuan.png', // 使用相同的图片作为示例
+            iconData: huaiyuanIconData,
+            locationData: huaiyuanLocationData,
+            name: '怀远校区'
         }
     };
 
@@ -264,7 +276,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // }
     
     // 启动预加载
-    startPreloading();
+    async function initializeApp() {
+        await startPreloading();
+        
+        // 从本地存储读取上次选择的地图
+        try {
+            const savedMapId = localStorage.getItem('lastSelectedMap');
+            if (savedMapId && mapsData[savedMapId]) {
+                // 如果存在保存的地图且有效，则切换到该地图
+                switchMap(savedMapId);
+                console.log('已从本地存储加载地图:', savedMapId);
+            } else {
+                // 默认使用文昌校区地图
+                console.log('使用默认地图: wencui');
+            }
+        } catch (error) {
+            console.warn('读取本地存储的地图选择失败:', error);
+            // 出错时继续使用默认地图
+        }
+    }
+    
+    // 初始化应用
+    initializeApp();
 
     // 初始化地图
     function initMap() {
@@ -1024,6 +1057,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // 更新当前使用的数据
         nowIconData = mapData.iconData;
         nowLocationData = mapData.locationData;
+        
+        // 保存到本地存储
+        try {
+            localStorage.setItem('lastSelectedMap', mapId);
+            console.log('已保存地图选择到本地存储:', mapId);
+        } catch (error) {
+            console.warn('保存地图选择到本地存储失败:', error);
+        }
         
         // 隐藏弹窗
         hideMapSelectPopup();
