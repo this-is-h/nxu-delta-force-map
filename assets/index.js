@@ -175,11 +175,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 图标数据 - 示例数据，可以根据需要修改
     const wencuiIconData = [
-        { x: 0.73, y: 0.443, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
+        { x: 0.73, y: 0.443, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '团委书记', content: '' },
         { x: 0.72, y: 0.48, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/bust-of-claudius.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
         { x: 0.7335, y: 0.4095, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/mandel-supercomputing-unit.png"></img><img class="back-red" src="assets/img/rewards/experimental-data.png"></img><img class="back-red" src="assets/img/rewards/quantum-storage.png"></img></div>' },
-        { x: 0.35, y: 0.3415, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是一个首领点，可以在这里挑战强大的敌人。' },
-        { x: 0.3425, y: 0.29, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/bust-of-claudius.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
+        { x: 0.35, y: 0.3415, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '书院领导', content: '' },
+        { x: 0.3425, y: 0.29, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/gold-bar.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
         { x: 0.495, y: 0.782, icon: 'assets/img/icon//evacuate_conditional.png', class: 'icon-evacuate', title: '南门撤离点', content: '撤离名额还有<span style="color: rgb(255, 236, 140);">1</span>名<div class="divider"></div>身份牌撤离点' },
         { x: 0.72, y: 0.402, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
         { x: 0.754, y: 0.7, icon: 'assets/img/icon/switch.png', class: 'icon-switch icon-connect', title: '拉闸', content: '启动两个开关以开启<span style="color: rgb(255, 236, 140);">拉闸撤离点：东门</span>' },
@@ -191,7 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
         { x: 0.515, y: 0.315, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
         { x: 0.76, y: 0.68, icon: 'assets/img/icon/small_safe_box.png', class: 'icon-safe-box', title: '骇客电脑', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"></div>' },
         { x: 0.65, y: 0.31, icon: 'assets/img/icon/high_value_task.png', class: 'icon-task', title: '【高价值】', content: '任务内容<div class="divider"></div>地点：<div class="divider"></div>报酬：<div class="divider"></div>行动内概率产出<div class="rewards"></div>' },
-        { x: 0.1135, y: 0.6, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '这里有一个任务等待完成。' },
+        { x: 0.71, y: 0.7, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '任务内容<div class="divider"></div>地点：<div class="divider"></div>报酬：<div class="divider"></div>行动内概率产出<div class="rewards"></div>' },
+        { x: 0.555, y: 0.54, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '任务内容<div class="divider"></div>地点：<div class="divider"></div>报酬：<div class="divider"></div>行动内概率产出<div class="rewards"></div>' },
+        { x: 0.46, y: 0.645, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '任务内容<div class="divider"></div>地点：<div class="divider"></div>报酬：<div class="divider"></div>行动内概率产出<div class="rewards"></div>' },
+        { x: 0.26, y: 0.22, icon: 'assets/img/icon/task.png', class: 'icon-task', title: '任务', content: '任务内容<div class="divider"></div>地点：<div class="divider"></div>报酬：<div class="divider"></div>行动内概率产出<div class="rewards"></div>' },
     ];
 
     const wencuiLocationData = [
@@ -208,15 +211,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 示例：第二个地图的数据
     const helanshanIconData = [
-        { x: 0.5, y: 0.5, icon: 'assets/img/icon/boss.png', class: 'icon-boss', title: '首领', content: '这是另一个地图的首领点。' },
-        { x: 0.3, y: 0.7, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '另一个地图的保险箱。' },
+        { x: 0.365, y: 0.62, icon: 'assets/img/icon/boss.png', class: 'icon-boss icon-mosaic', title: '校长', content: '' },
+        { x: 0.372, y: 0.6, icon: 'assets/img/icon/safe_box.png', class: 'icon-safe-box', title: '保险箱', content: '高价值容器<div class="divider"></div>高概率出现<div class="rewards"><img class="back-red" src="assets/img/rewards/heart-of-africa.png"></img><img class="back-red" src="assets/img/rewards/bust-of-claudius.png"></img><img class="back-red" src="assets/img/rewards/golden-gazelle.png"></img><img class="back-red" src="assets/img/rewards/precious-mechanical-watch.png"></img></div>' },
         { x: 0.8, y: 0.3, icon: 'assets/img/icon/evacuate_conditional.png', class: 'icon-evacuate', title: '撤离点', content: '另一个地图的撤离点。' }
     ];
     
     const helanshanLocationData = [
-        { x: 0.5, y: 0.5, title: '中央广场'},
-        { x: 0.3, y: 0.7, title: '北区'},
-        { x: 0.8, y: 0.3, title: '南区'}
+        { x: 0.372, y: 0.59, title: '主楼'},
+        { x: 0.312, y: 0.636, title: '兰山一教'},
+        { x: 0.2, y: 0.69, title: '学术交流中心'},
+        { x: 0.208, y: 0.477, title: '未来教室'},
+        { x: 0.21, y: 0.58, title: '停车场'}
     ];
     
     // 示例：第三个地图的数据
@@ -237,16 +242,16 @@ document.addEventListener('DOMContentLoaded', function() {
             imageUrl: 'assets/img/map/wencui.png',
             iconData: wencuiIconData,
             locationData: wencuiLocationData,
-            name: '文昌校区'
+            name: '文萃校区'
         },
         'helanshan': {
-            imageUrl: 'assets/img/map/helanshan.png', // 使用相同的图片作为示例
+            imageUrl: 'assets/img/map/helanshan.png',
             iconData: helanshanIconData,
             locationData: helanshanLocationData,
             name: '贺兰山校区'
         },
         'huaiyuan': {
-            imageUrl: 'assets/img/map/huaiyuan.png', // 使用相同的图片作为示例
+            imageUrl: 'assets/img/map/huaiyuan.png',
             iconData: huaiyuanIconData,
             locationData: huaiyuanLocationData,
             name: '怀远校区'
@@ -334,7 +339,8 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // 创建一个临时的Canvas元素来获取地图边缘的颜色
             const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+            // 添加willReadFrequently属性以优化getImageData性能
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
             
             // 设置canvas尺寸为地图图片的尺寸
             canvas.width = mapImg.naturalWidth;
@@ -1051,13 +1057,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // 更新地图图片
-        mapImg.src = mapData.imageUrl;
-        
-        // 更新当前使用的数据
-        nowIconData = mapData.iconData;
-        nowLocationData = mapData.locationData;
-        
         // 保存到本地存储
         try {
             localStorage.setItem('lastSelectedMap', mapId);
@@ -1069,26 +1068,84 @@ document.addEventListener('DOMContentLoaded', function() {
         // 隐藏弹窗
         hideMapSelectPopup();
         
-        // 重新初始化地图
-        resetMap();
-        initializeMap();
+        // 为body添加背景色过渡效果
+        document.body.style.transition = 'background-color 0.25s ease-in-out';
         
-        console.log('已切换到地图:', mapData.name);
+        // 添加淡出动画效果
+        map.style.transition = 'opacity 0.25s ease-out';
+        map.style.opacity = '0';
+        
+        // 延迟清理资源和加载新地图，等待淡出动画完成
+        setTimeout(() => {
+            // 清理旧资源
+            resetMap();
+            
+            // 更新当前使用的数据
+            nowIconData = mapData.iconData;
+            nowLocationData = mapData.locationData;
+            
+            // 创建一个新的Image对象来预加载新地图图片
+            const tempImg = new Image();
+            tempImg.onload = function() {
+                // 当新地图图片加载完成后，设置新图片
+                mapImg.src = mapData.imageUrl;
+                
+                // 使用setTimeout确保浏览器有足够时间处理图片更新
+                setTimeout(() => {
+                    // 重新初始化地图，但不立即显示
+                    initializeMap();
+                    
+                    // 添加淡入动画效果
+                    map.style.opacity = '1';
+                    map.style.transition = 'opacity 0.25s ease-in';
+                    
+                    console.log('已切换到地图:', mapData.name);
+                }, 100);
+            };
+            tempImg.onerror = function() {
+                console.error('加载地图图片失败:', mapData.imageUrl);
+                // 即使加载失败也尝试初始化并显示
+                initializeMap();
+                map.style.opacity = '1';
+            };
+            tempImg.src = mapData.imageUrl;
+        }, 300); // 等待淡出动画完成
     }
     
     // 重置地图
     function resetMap() {
+        // 隐藏弹窗
+        hidePopup();
+        
         // 移除所有图标
         const icons = document.querySelectorAll('.icon');
-        icons.forEach(icon => icon.remove());
+        icons.forEach(icon => {
+            try {
+                icon.remove();
+            } catch (e) {
+                console.warn('移除图标失败:', e);
+            }
+        });
         
         // 移除所有连接线
         const connections = document.querySelectorAll('.connection-line');
-        connections.forEach(connection => connection.remove());
+        connections.forEach(connection => {
+            try {
+                connection.remove();
+            } catch (e) {
+                console.warn('移除连接线失败:', e);
+            }
+        });
         
         // 移除所有地名
         const locations = document.querySelectorAll('.location');
-        locations.forEach(location => location.remove());
+        locations.forEach(location => {
+            try {
+                location.remove();
+            } catch (e) {
+                console.warn('移除地名失败:', e);
+            }
+        });
         
         // 重置地图状态
         mapState.scale = 1;
