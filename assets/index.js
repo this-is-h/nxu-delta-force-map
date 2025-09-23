@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
         images.push('assets/img/rewards/mandel-supercomputing-unit.png');
         images.push('assets/img/rewards/precious-mechanical-watch.png');
         images.push('assets/img/rewards/quantum-storage.png');
+        images.push('assets/img/rewards/gold-bar.png');
+        images.push('assets/img/rewards/main-battle-tank-model.png');
         
         return images;
     }
