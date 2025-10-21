@@ -1232,19 +1232,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     
                     // 设置临时地图尺寸和样式，确保导出完整内容
-                    // const imgWidth = mapImg.naturalWidth;
-                    // const imgHeight = mapImg.naturalHeight;
+                    const imgWidth = mapImg.naturalWidth;
+                    const imgHeight = mapImg.naturalHeight;
                     tempMap.style.transform = 'none';
-                    // tempMap.style.position = 'relative';
-                    // tempMap.style.width = `${imgWidth}px`;
-                    // tempMap.style.height = `${imgHeight}px`;
-                    // tempMap.style.overflow = 'visible';
+                    tempMap.style.position = 'relative';
+                    tempMap.style.width = `${imgWidth}px`;
+                    tempMap.style.height = `${imgHeight}px`;
+                    tempMap.style.overflow = 'visible';
                     
                     // 添加到临时容器
                     tempContainer.appendChild(tempMap);
                     
                     // 确保浏览器有时间渲染克隆的元素
-                    await new Promise(resolve => setTimeout(resolve, 100));
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                     
                     // 执行导出
                     await snapdom.download(tempMap, {
@@ -1255,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     
                     // 清理临时元素
-                    // document.body.removeChild(tempContainer);
+                    document.body.removeChild(tempContainer);
                 } catch (error) {
                     console.error('导出图片失败:', error);
                     // 显示错误提示
