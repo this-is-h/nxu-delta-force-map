@@ -1166,15 +1166,105 @@ document.addEventListener('DOMContentLoaded', function() {
         if (exportImageBtn) {
             // 为导出图片按钮添加点击事件
             addEventListener(exportImageBtn, 'click', async function() {
-                // 目前不需要实现具体的导出逻辑
                 console.log('导出图片按钮被点击');
-                const el = document.querySelector('#map-container');
-                await snapdom.download(el, {
-                    format: 'png',
-                    filename: 'map',
-                    scale: 2.5,
-                    quality: 1
-                })
+                
+                // 保存原始按钮文本和状态
+                const originalText = exportImageBtn.textContent;
+                const wasDisabled = exportImageBtn.disabled;
+                
+                // 更新按钮状态为"导出中..."并禁用
+                exportImageBtn.textContent = '导出中...';
+                exportImageBtn.disabled = true;
+                
+                try {
+                    // 创建隐藏的临时容器用于导出
+                    const tempContainer = document.createElement('div');
+                    // 设置绝对定位和足够大的z-index，确保它位于所有元素之上但不可见
+                    tempContainer.style.position = 'absolute';
+                    tempContainer.style.top = '0';
+                    tempContainer.style.left = '0';
+                    tempContainer.style.width = '1px';
+                    tempContainer.style.height = '1px';
+                    tempContainer.style.overflow = 'hidden';
+                    tempContainer.style.zIndex = '-1';
+                    document.body.appendChild(tempContainer);
+                    
+                    // 克隆地图容器及其内容
+                    const mapContainer = document.querySelector('#map-container');
+                    const map = document.querySelector('#map');
+                    const mapImg = document.querySelector('#map-img');
+                    
+                    // 创建克隆的地图元素
+                    const tempMap = map.cloneNode(false);
+                    const tempMapImg = mapImg.cloneNode(true);
+                    tempMap.appendChild(tempMapImg);
+                    
+                    // 克隆所有图标
+                    const icons = document.querySelectorAll('.icon');
+                    icons.forEach(icon => {
+                        const tempIcon = icon.cloneNode(true);
+                        // 移除事件监听器引用以避免内存泄漏
+                        const newIcon = document.createElement('div');
+                        newIcon.className = tempIcon.className;
+                        newIcon.style.cssText = tempIcon.style.cssText;
+                        if (tempIcon.dataset.index) {
+                            newIcon.dataset.index = tempIcon.dataset.index;
+                        }
+                        // 克隆图标内的所有子元素
+                        Array.from(tempIcon.children).forEach(child => {
+                            newIcon.appendChild(child.cloneNode(true));
+                        });
+                        tempMap.appendChild(newIcon);
+                    });
+                    
+                    // 克隆所有地名单据
+                    const locations = document.querySelectorAll('.location');
+                    locations.forEach(location => {
+                        const tempLocation = location.cloneNode(true);
+                        tempMap.appendChild(tempLocation);
+                    });
+                    
+                    // 克隆所有连接线
+                    const connections = document.querySelectorAll('.connection-line');
+                    connections.forEach(connection => {
+                        const tempConnection = connection.cloneNode(true);
+                        tempMap.appendChild(tempConnection);
+                    });
+                    
+                    // 设置临时地图尺寸和样式，确保导出完整内容
+                    // const imgWidth = mapImg.naturalWidth;
+                    // const imgHeight = mapImg.naturalHeight;
+                    tempMap.style.transform = 'none';
+                    // tempMap.style.position = 'relative';
+                    // tempMap.style.width = `${imgWidth}px`;
+                    // tempMap.style.height = `${imgHeight}px`;
+                    // tempMap.style.overflow = 'visible';
+                    
+                    // 添加到临时容器
+                    tempContainer.appendChild(tempMap);
+                    
+                    // 确保浏览器有时间渲染克隆的元素
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    // 执行导出
+                    await snapdom.download(tempMap, {
+                        format: 'png',
+                        filename: 'map',
+                        scale: 1.5,
+                        quality: 1
+                    });
+                    
+                    // 清理临时元素
+                    // document.body.removeChild(tempContainer);
+                } catch (error) {
+                    console.error('导出图片失败:', error);
+                    // 显示错误提示
+                    alert('导出图片失败，请稍后重试');
+                } finally {
+                    // 恢复按钮原始文本和状态
+                    exportImageBtn.textContent = originalText;
+                    exportImageBtn.disabled = wasDisabled;
+                }
             });
         }
         
